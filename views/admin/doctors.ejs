@@ -1,0 +1,172 @@
+<%- include('header.ejs'); %>
+
+    <div class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar-title">
+            <h1>Doctors</h1>
+            <p>Manage your specialist roster</p>
+          </div>
+        </div>
+        <div class="topbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" id="doctors-search" placeholder="Search doctors by name, specialty…" />
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-btn-wrap">
+            <button type="button" class="topbar-btn" data-notifications aria-label="Notifications"><i class="fa-solid fa-bell"></i></button>
+          </div>
+          <div class="profile-dropdown">
+            <button type="button" class="profile-trigger">
+              <img data-current-user-avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80" alt="" />
+              <span class="profile-name" data-current-user-name>System Admin</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu">
+              <div class="profile-menu-header">
+                <strong data-current-user-name>System Admin</strong>
+                <span data-current-user-email>admin@medicare.com</span>
+              </div>
+              <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+              <div class="divider"></div>
+              <a href="login.html" class="danger logout-btn" data-logout="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="page-toolbar">
+          <h2>All Doctors <span class="badge badge-primary" id="doctors-count">0 of 0</span></h2>
+          <div class="page-toolbar-actions">
+           
+          </div>
+        </div>
+        <div>
+           <form action="/admin/doctor_save" method="post" enctype="multipart/form-data">
+      <div class="modal-body">
+        <input type="hidden" name="id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="doc-name" name="dname" class="form-control" placeholder="Dr. Jane Doe" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-specialty">Specialty <span class="required">*</span></label>
+            <input type="text" id="doc-specialty" name="dspecialty" class="form-control" placeholder="Cardiologist" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-department">Department <span class="required">*</span></label>
+            <select id="doc-department" name="department" class="form-control" required>
+              <option>Choose</option>
+              <% for(var i=0;i<data.length;i++){ %>
+                 <option value="<%=data[i].did %>"><%=data[i].name %></option>
+                <% } %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-experience">Experience (years)</label>
+            <input type="number" id="doc-experience" name="dexperience" class="form-control" min="0" placeholder="10" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-fees">Consultation Fee (RS.) <span class="required">*</span></label>
+            <input type="number" id="doc-fees" name="dfees" class="form-control" min="0" step="1" placeholder="150" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-rating">Rating</label>
+            <input type="number" id="doc-rating" name="drating" class="form-control" min="0" max="5" step="0.1" placeholder="4.8" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-email">Email</label>
+            <input type="email" id="doc-email" name="demail" class="form-control" placeholder="doctor@medicareplus.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-phone">Phone</label>
+            <input type="tel" id="doc-phone" name="dphone" class="form-control" placeholder="+1 555-0100" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-gender">Gender</label>
+            <select id="doc-gender" name="dgender" class="form-control">
+              <option value="">Select</option>
+              <option value="female">Female</option>
+              <option value="male">Male</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-image">Image</label>
+            <input type="file" id="doc-image" name="dimage" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Doctor</button>
+      </div>
+    </form>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="table" id="doctors-table">
+            <thead>
+              <tr>
+                <th>Doctor</th>
+                <th>Specialty</th>
+                <th>Department</th>
+                <th>Experience</th>
+                <th>Fee</th>
+                <th>Rating</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="doctors-tbody">
+             <% for (var i=0; i<doctor.length; i++){ %>
+              <tr>
+                      <td><%= doctor[i].dname %></td>
+                      <td><%= doctor[i].dspecialty %></td>
+                      <td><%=data[i].name %></td>
+                      <td><%= doctor[i].dexperience %></td>
+                      <td><%= doctor[i].dfees %></td>
+                      <td><%= doctor[i].drating %></td>
+                      <td><img src="/images/<%= doctor[i].dimage %>" width="120" height="120" /></td>
+                    <td>
+                     <a href="/admin/doctor_edit/<%= doctor[i].did %>" class="btn btn-success"><i class="fa fa-pencil"></i></a>
+                      <a href="/admin/doctor_delete/<%= doctor[i].did %>"
+   class="btn btn-danger"
+   onclick="return confirm('Are you sure you want to delete this doctor?')">
+    <i class="fa fa-trash"></i>
+</a>
+                     </td>
+               </tr>
+                     <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="doctors-pagination"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add / Edit Doctor Modal -->
+  <div class="modal-backdrop" id="doctor-modal-backdrop"></div>
+  <div class="modal modal-lg" id="doctor-modal" role="dialog" aria-modal="true" aria-labelledby="doctor-modal-title">
+    <div class="modal-header">
+      <h3 id="doctor-modal-title">Add New Doctor</h3>
+      <button type="button" class="modal-close" data-modal-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+
+
+ <%- include('header.ejs'); %>
+
+
+ 

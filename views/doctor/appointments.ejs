@@ -1,0 +1,135 @@
+<%- include('header.ejs'); %>
+
+      <div class="dashboard-content">
+
+        <div class="page-toolbar">
+          <h2>Manage Appointments</h2>
+          <div class="page-toolbar-actions">
+            <button type="button" class="btn btn-outline btn-sm">
+              <i class="fa-solid fa-download"></i> Export Today
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-panel">
+          <div class="dashboard-panel-body">
+            <div data-tabs>
+              <div class="tabs">
+                <button type="button" class="tab-btn active" data-tab="today">Pending </button>
+                <button type="button" class="tab-btn" data-tab="upcoming">Confirm </button>
+                <button type="button" class="tab-btn" data-tab="completed">Complete</button>
+                <button type="button" class="tab-btn" data-tab="cancelled">Reject </button>
+              </div>
+
+              <div class="tab-panel active" data-tab-panel="today">
+                <div class="table-wrapper">
+                  <table class="table">
+                   <thead>
+                      <tr><th>Patient</th><th>Date</th><th>Time</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0;i<data3.length;i++){ %>
+                      <tr>
+                        <td><div class="table-user"><div><strong><%= data3[i].p_name %></strong><span><%= data3[i].p_gender %> · yrs</span></div></div></td>
+                        <td><%= new Date(data3[i].app_date).toLocaleDateString('en-GB') %></td>
+                        <td><%= new Date('1970-01-01T' + data3[i].app_time) .toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) %></td>
+                        <td><%= data3[i].app_reason %></td>
+                        <td><span class="badge badge-pending"><%= data3[i].status %></span></td>
+                        <td class="table-actions">
+                          <a href="/doctor/app_Confirm/<%= data3[i].app_id %>" class="btn btn-sm btn-outline">Confirm</a> 
+                          <a href="/doctor/app_Reject/<%= data3[i].app_id %>" class="btn btn-sm btn-outline">Reject</a> 
+                        </td>
+                        </td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="upcoming" hidden>
+                <div class="table-wrapper">
+                  <table class="table">
+                    <thead>
+                      <tr><th>Patient</th><th>Date</th><th>Time</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0;i<data4.length;i++){ %>
+                      <tr>
+                        <td><div class="table-user"><div><strong><%= data4[i].p_name %></strong><span><%= data4[i].p_gender %> · yrs</span></div></div></td>
+                        <td><%= new Date(data4[i].app_date).toLocaleDateString('en-GB') %></td>
+                        <td><%= new Date('1970-01-01T' + data4[i].app_time) .toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) %></td>
+                        <td><%= data4[i].app_reason %></td>
+                        <td><span class="badge badge-pending"><%= data4[i].status %></span></td>
+                        <td class="table-actions">
+                          <a href="/doctor/app_complete/<%= data4[i].app_id %>" class="btn btn-sm btn-outline">Complete</a> 
+                          <a href="/doctor/app_Reject/<%= data4[i].app_id %>" class="btn btn-sm btn-outline">Reject</a> 
+                        </td>
+                        </td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="completed" hidden>
+                <div class="table-wrapper">
+                  <table class="table">
+                    <thead>
+                      <tr><th>Patient</th><th>Date</th><th>Time</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                       <% for(var i=0;i<data5.length;i++){ %>
+                      <tr>
+                        <td><div class="table-user"><div><strong><%= data5[i].p_name %></strong><span><%= data5[i].p_gender %> · yrs</span></div></div></td>
+                        <td><%= new Date(data5[i].app_date).toLocaleDateString('en-GB') %></td>
+                        <td><%= new Date('1970-01-01T' + data5[i].app_time) .toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) %></td>
+                        <td><%= data5[i].app_reason %></td>
+                        <td><span class="badge badge-pending"><%= data5[i].status %></span></td>
+                        <td class="table-actions">
+                          <a href="/doctor/app_Confirm/<%= data5[i].app_id %>" class="btn btn-sm btn-outline">Confirm</a> 
+                          <a href="/doctor/app_Reject/<%= data5[i].app_id %>" class="btn btn-sm btn-outline">Reject</a> 
+                        </td>
+                        </td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="cancelled" hidden>
+                <div class="table-wrapper">
+                  <table class="table">
+                    <thead>
+                      <tr><th>Patient</th><th>Date</th><th>Time</th><th>Reason</th><th>Status</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody>
+                      <% for(var i=0;i<data6.length;i++){ %>
+                      <tr>
+                        <td><div class="table-user"><div><strong><%= data6[i].p_name %></strong><span><%= data6[i].p_gender %> · yrs</span></div></div></td>
+                        <td><%= new Date(data6[i].app_date).toLocaleDateString('en-GB') %></td>
+                        <td><%= new Date('1970-01-01T' + data6[i].app_time) .toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }) %></td>
+                        <td><%= data6[i].app_reason %></td>
+                        <td><span class="badge badge-pending"><%= data6[i].status %></span></td>
+                        <td class="table-actions">
+                          <a href="/doctor/app_Confirm/<%= data6[i].app_id %>" class="btn btn-sm btn-outline">Confirm</a> 
+                          <a href="/doctor/app_Reject/<%= data6[i].app_id %>" class="btn btn-sm btn-outline">Reject</a> 
+                        </td>
+                        </td>
+                      </tr>
+                      <% } %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <%- include('footer.ejs'); %>

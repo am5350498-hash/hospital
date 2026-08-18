@@ -1,0 +1,31 @@
+<%- include('header.ejs'); %>
+
+    <section class="page-banner">
+      <div class="container">
+        <h1 data-page-title>Health Blog</h1>
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span data-breadcrumb-current>Blog</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- List view -->
+        <div data-blog-list>
+          <div class="section-header" data-aos="fade-up">
+            <span class="eyebrow">Health Insights</span>
+            <h2>Latest Articles From Our Specialists</h2>
+            <p>Practical, evidence-based guidance to help you and your family stay well.</p>
+          </div>
+          <div class="blog-grid" data-blog-grid></div>
+        </div>
+
+        <!-- Detail view -->
+        <div data-blog-detail hidden></div>
+      </div>
+    </section>
+ 
+    <%- include('footer.ejs'); %>

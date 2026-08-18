@@ -1,0 +1,90 @@
+<%- include('header.ejs'); %>
+
+    <div class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar-title">
+            <h1>Contacts</h1>
+            <p>Registered contacts across the hospital</p>
+          </div>
+        </div>
+       
+        <div class="topbar-right">
+          <div class="topbar-btn-wrap">
+            <button type="button" class="topbar-btn" data-notifications aria-label="Notifications"><i class="fa-solid fa-bell"></i></button>
+          </div>
+          <div class="profile-dropdown">
+            <button type="button" class="profile-trigger">
+              <img data-current-user-avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80" alt="" />
+              <span class="profile-name" data-current-user-name>System Admin</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu">
+              <div class="profile-menu-header">
+                <strong data-current-user-name>System Admin</strong>
+                <span data-current-user-email>admin@medicare.com</span>
+              </div>
+              <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+              <div class="divider"></div>
+              <a href="login.html" class="danger logout-btn" data-logout="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="page-toolbar">
+          <h2>Update Contacts <span class="badge badge-primary" ></span></h2>
+          <div class="page-toolbar-actions">
+            </div>
+            </div>
+            <div>
+               <form action="/admin/contacts_save" method="POST" enctype="multipart/form-data" id="patient-form">
+      <div class="modal-body">
+        <input type="hidden" name="id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="pat-email">Email <span class="required">*</span></label>
+            <input type="email" id="pat-email" name="email" class="form-control" value="<%= data.cemail %>" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="pat-phone">Phone</label>
+            <input type="tel" id="pat-phone" name="phone" class="form-control" value="<%= data.cphone %>" />
+          </div>
+          
+        </div>
+       
+        <div class="form-group">
+          <label class="form-label" for="pat-address">Address</label>
+          <input type="text" id="pat-address" name="address" class="form-control" value="<%= data.caddress %>" placeholder="Street, City, State" />
+        </div>
+
+
+        <div class="form-group">
+            <label class="form-label" for="pat-name">Working Hours <span class="required">*</span></label>
+            <input type="text" id="pat-name" name="working_hours" class="form-control" value="<%= data.cworking_hours %>" required />
+          </div>
+          <div class="form-group">
+          <label class="form-label" for="pat-address">Map</label>
+          <input type="map" id="pat-address" name="map" class="form-control" value="<%= data.cmap %>"  />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i>Update Contacts </button>
+      </div>
+    </form>
+            </div>
+            
+          </div>
+        </div>
+
+      
+
+
+ <%- include('footer.ejs'); %>
+
+ 

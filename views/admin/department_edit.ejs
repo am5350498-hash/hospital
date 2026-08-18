@@ -1,0 +1,79 @@
+<%- include('header.ejs'); %>
+
+    <div class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar-title">
+            <h1>Departments</h1>
+            <p>Clinical departments &amp; specializations</p>
+          </div>
+        </div>
+        <div class="topbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" id="departments-search" placeholder="Search departments…" />
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-btn-wrap">
+            <button type="button" class="topbar-btn" data-notifications aria-label="Notifications"><i class="fa-solid fa-bell"></i></button>
+          </div>
+          <div class="profile-dropdown">
+            <button type="button" class="profile-trigger">
+              <img data-current-user-avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80" alt="" />
+              <span class="profile-name" data-current-user-name>System Admin</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu">
+              <div class="profile-menu-header">
+                <strong data-current-user-name>System Admin</strong>
+                <span data-current-user-email>admin@medicare.com</span>
+              </div>
+              <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+              <div class="divider"></div> 
+              <a href="/login" class="danger logout-btn" data-logout="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+
+        <div>
+          <form action="/admin/department_update/<%= data.did %>" method="post">
+      <div class="modal-body">
+        <input type="hidden" name="id" />
+        <div class="form-group">
+          <label class="form-label" for="dept-name">Department Name <span class="required">*</span></label>
+          <input type="text" id="dept-name" name="name" value="<%= data.name %>" class="form-control" placeholder="Cardiology" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="dept-icon">Icon (Font Awesome class)</label>
+            <input type="text" id="dept-icon" name="icon" value="<%= data.icon %>" class="form-control" placeholder="fa-solid fa-heart-pulse" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="dept-image">Image URL</label>
+            <input type="url" id="dept-image" name="image" value="<%= data.image %>" class="form-control" placeholder="https://…" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="dept-beds">Number of Beds</label>
+          <input type="number" id="dept-beds" name="beds" value="<%= data.beds %>" class="form-control" min="0" placeholder="20" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="dept-description">Description <span class="required">*</span></label>
+          <textarea id="dept-description" name="description" class="form-control" <%= data.description %> rows="3" placeholder="Brief description of the department…" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Update Department</button>
+      </div>
+    </form>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <%- include('footer.ejs'); %>

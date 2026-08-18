@@ -1,0 +1,147 @@
+<%- include('header.ejs'); %>
+
+    <div class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar-title">
+            <h1>Doctors</h1>
+            <p>Manage your specialist roster</p>
+          </div>
+        </div>
+        <div class="topbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" id="doctors-search" placeholder="Search doctors by name, specialty…" />
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-btn-wrap">
+            <button type="button" class="topbar-btn" data-notifications aria-label="Notifications"><i class="fa-solid fa-bell"></i></button>
+          </div>
+          <div class="profile-dropdown">
+            <button type="button" class="profile-trigger">
+              <img data-current-user-avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80" alt="" />
+              <span class="profile-name" data-current-user-name>System Admin</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu">
+              <div class="profile-menu-header">
+                <strong data-current-user-name>System Admin</strong>
+                <span data-current-user-email>admin@medicare.com</span>
+              </div>
+              <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+              <div class="divider"></div>
+              <a href="login.html" class="danger logout-btn" data-logout="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="page-toolbar">
+          <h2>All Doctors <span class="badge badge-primary" id="doctors-count">0 of 0</span></h2>
+          <div class="page-toolbar-actions">
+           
+          </div>
+        </div>
+        <div>
+          <form action="/admin/doctor_update/<%= doctor.did %>/<%= doctor.dimage %>" method="post" enctype="multipart/form-data">
+      <div class="modal-body">
+        <input type="hidden" name="id" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-name">Full Name <span class="required">*</span></label>
+            <input type="text" id="doc-name" name="dname" value="<%= doctor.dname %>" class="form-control" placeholder="Dr. Jane Doe" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-specialty">Specialty <span class="required">*</span></label>
+            <input type="text" id="doc-specialty" name="dspecialty"  value="<%= doctor.dspecialty %>" class="form-control" placeholder="Cardiologist" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-department">Department <span class="required">*</span></label>
+            <select id="doc-department" name="department" class="form-control" required>
+              <% for(var i=0;i<department.length;i++){ %>
+
+<option value="<%= department[i].did %>"
+<%= doctor.department==department[i].did ? "selected" : "" %>>
+
+<%= department[i].name %>
+
+</option>
+
+<% } %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-experience">Experience (years)</label>
+            <input type="number" id="doc-experience" name="dexperience" value="<%= doctor.dexperience %>" class="form-control" min="0" placeholder="10" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-fees">Consultation Fee (RS.) <span class="required">*</span></label>
+            <input type="number" id="doc-fees" name="dfees" value="<%= doctor.dfees %>" class="form-control" min="0" step="1" placeholder="150" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-rating">Rating</label>
+            <input type="number" id="doc-rating" name="drating" value="<%= doctor.drating %>" class="form-control" min="0" max="5" step="0.1" placeholder="4.8" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-email">Email</label>
+            <input type="email" id="doc-email" name="demail" value="<%= doctor.demail %>" class="form-control" placeholder="doctor@medicareplus.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-phone">Phone</label>
+            <input type="tel" id="doc-phone" name="dphone" value="<%= doctor.dphone %>" class="form-control" placeholder="+1 555-0100" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="doc-gender">Gender</label>
+            <select id="doc-gender" name="dgender" class="form-control">
+             <option value="male"
+<%= doctor.dgender=="male" ? "selected" : "" %>>
+Male
+</option>
+
+<option value="female"
+<%= doctor.dgender=="female" ? "selected" : "" %>>
+Female
+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="doc-image">Image</label>
+            <input type="file" id="doc-image" name="dimage" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Update Doctor</button>
+      </div>
+    </form>
+     
+        </div>
+        <div class="pagination" id="doctors-pagination"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- Add / Edit Doctor Modal -->
+  <div class="modal-backdrop" id="doctor-modal-backdrop"></div>
+  <div class="modal modal-lg" id="doctor-modal" role="dialog" aria-modal="true" aria-labelledby="doctor-modal-title">
+    <div class="modal-header">
+      <h3 id="doctor-modal-title">Add New Doctor</h3>
+      <button type="button" class="modal-close" data-modal-close aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+
+
+ <%- include('footer.ejs'); %>
+
+
+ 

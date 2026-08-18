@@ -1,0 +1,132 @@
+<%- include('header.ejs'); %>
+
+    <div class="dashboard-main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="sidebar-toggle" aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
+          <div class="topbar-title">
+            <h1>Treatments</h1>
+            <p>Available medical treatments &amp; procedures</p>
+          </div>
+        </div>
+        <div class="topbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="search" id="treatments-search" placeholder="Search treatments…" />
+        </div>
+        <div class="topbar-right">
+          <div class="topbar-btn-wrap">
+            <button type="button" class="topbar-btn" data-notifications aria-label="Notifications"><i class="fa-solid fa-bell"></i></button>
+          </div>
+          <div class="profile-dropdown">
+            <button type="button" class="profile-trigger">
+              <img data-current-user-avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80" alt="" />
+              <span class="profile-name" data-current-user-name>System Admin</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="profile-menu">
+              <div class="profile-menu-header">
+                <strong data-current-user-name>System Admin</strong>
+                <span data-current-user-email>admin@medicare.com</span>
+              </div>
+              <a href="settings.html"><i class="fa-solid fa-gear"></i> Settings</a>
+              <div class="divider"></div>
+              <a href="login.html" class="danger logout-btn" data-logout="login.html"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="page-toolbar">
+          <h2>All Treatments <span class="badge badge-primary" id="treatments-count">0 of 0</span></h2>
+          <div class="page-toolbar-actions">
+            <select id="treatments-dept-filter" class="form-control" style="max-width:200px;">
+              <option value="all">All Departments</option>
+            </select>
+          </div>
+        </div>
+        <div class="">
+           <form action="/admin/treatment_save" method="post" enctype="multipart/form-data">
+      <div class="modal-body">
+        <input type="hidden" name="id" />
+         <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="treat-image">Treatment Image <span class="required">*</span></label>
+            <input type="file" id="treat-image" name="timage" class="form-control" placeholder="MRI Image" required />
+          </div>
+          </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="treat-name">Treatment Name <span class="required">*</span></label>
+            <input type="text" id="treat-name" name="tname" class="form-control" placeholder="MRI Scan" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="treat-department">Department <span class="required">*</span></label>
+            <select id="treat-department" name="tdepartment" class="form-control" required>
+              <option>Choose</option>
+              <% for(var i=0;i<dept.length;i++){ %>
+                <option value="<%=dept[i].did %>"><%=dept[i].name %></option>
+                <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="treat-duration">Duration</label>
+            <input type="text" id="treat-duration" name="tduration" class="form-control" placeholder="45 mins" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="treat-price">Price (RS.) <span class="required">*</span></label>
+            <input type="number" id="treat-price" name="tprice" class="form-control" min="0" step="1" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="treat-description">Description</label>
+          <textarea id="treat-description" name="tdescription" class="form-control" rows="3" placeholder="Brief description of the treatment…"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Treatment</button>
+      </div>
+    </form>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="table" id="treatments-table">
+            <thead>
+              <tr>
+                <th>Treatment</th>
+                <th>Department</th>
+                <th>Duration</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="treatments-tbody">
+              <% for (var i=0;i<treatment.length;i++){ %>
+                <tr>
+                <td><%=treatment[i].tname%></td>
+                <td><%=dept[i].name %></td>
+                <td><%=treatment[i].tduration%></td>
+                <td><%=treatment[i].tprice%></td>
+                <td><img src="/images/<%=treatment[i].timage%>" width="100"></td>
+                <td>
+        <a href="/admin/treatment_edit/<%= treatment[i].tid %>"><button class="btn btn-sm btn-warning "><i class="fa fa-pencil"></i></button></a>
+        <a href="/admin/treatment_delete/<%= treatment[i].tid %>"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"  onclick="return confirm('Are you sure?')"></i></button></a>
+    </td>
+                
+              </tr>
+                <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" id="treatments-pagination"></div>
+      </main>
+    </div>
+  </div>
+
+ 
+
+ <%- include('footer.ejs'); %>

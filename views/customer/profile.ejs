@@ -1,0 +1,141 @@
+ <%- include('header.ejs'); %>
+
+
+
+      <div class="dashboard-content">
+
+        <div class="profile-layout">
+          <div class="profile-sidebar-card">
+            <div class="profile-avatar-wrap">
+              <img src="/images/<%= customer.p_image %>" alt="<%= customer.p_name %>" />
+              <span class="avatar-edit" title="Change photo"><i class="fa-solid fa-camera"></i></span>
+            </div>
+            <h3><%= customer.p_name %></h3>
+            <span class="role-tag">Patient Account</span>
+            <p class="text-muted" style="font-size:0.875rem; margin-bottom:0;"><%= customer.p_email %></p>
+            <div class="profile-stats-mini">
+              <div>
+                <strong>12</strong>
+                <span>Appointments</span>
+              </div>
+              <div>
+                <strong>2022</strong>
+                <span>Member Since</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-form-card">
+            <div class="profile-form-tabs" data-tabs>
+              <button type="button" class="active" data-tab="info">Personal Information</button>
+              <button type="button" data-tab="security">Security</button>
+            </div>
+
+            <div class="profile-form-body">
+              <div class="tab-panel active" data-tab-panel="info">
+                <div class="form-section-title">Personal Information</div>
+                <form action="/customer/profile_save" method="post" enctype="multipart/form-data">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Image <span class="required">*</span></label>
+                      <input type="file" name="p_image" class="form-control" value=""  />
+                      <input type="hidden" name="p_image_old" class="form-control" value="<%= customer.p_image %>"  />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Full Name <span class="required">*</span></label>
+                      <input type="text" name="p_name" class="form-control" value="<%= customer.p_name %>" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email Address</label>
+                      <input type="email" name="p_email" class="form-control" value="<%= customer.p_email %>"  />
+                      <p class="form-hint">Contact support to change your registered email.</p>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Phone Number</label>
+                      <input type="tel" name="p_phone" class="form-control" value="<%= customer.p_phone %>" placeholder="+1 555-0100" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Date of Birth</label>
+                      <input type="date" name="p_dob" class="form-control" value="<%= customer.p_dob %>" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Blood Group</label>
+                      <select name="p_bloodGroup" class="form-control">
+                        <option value="">Select</option>
+                        <option value="A+" <% if (customer.p_bloodGroup === 'A+') { %>selected<% } %>>A+</option>
+                        <option value="A-" <% if (customer.p_bloodGroup === 'A-') { %>selected<% } %>>A-</option>
+                        <option value="B+" <% if (customer.p_bloodGroup === 'B+') { %>selected<% } %>>B+</option>
+                        <option value="B-" <% if (customer.p_bloodGroup === 'B-') { %>selected<% } %>>B-</option>
+                        <option value="AB+" <% if (customer.p_bloodGroup === 'AB+') { %>selected<% } %>>AB+</option>
+                        <option value="AB-" <% if (customer.p_bloodGroup === 'AB-') { %>selected<% } %>>AB-</option>
+                        <option value="O+" <% if (customer.p_bloodGroup === 'O+') { %>selected<% } %>>O+</option>
+                        <option value="O-" <% if (customer.p_bloodGroup === 'O-') { %>selected<% } %>>O-</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Gender</label>
+                      <select name="p_gender" class="form-control">
+                        <option value="">Select</option>
+                        <option value="female" <% if (customer.p_gender === 'female') { %>selected<% } %>>Female</option>
+                        <option value="male" <% if (customer.p_gender === 'male') { %>selected<% } %>>Male</option>
+                        <option value="other" <% if (customer.p_gender === 'other') { %>selected<% } %>>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea name="p_address" class="form-control" rows="3" placeholder="Street, city, state, ZIP"><%= customer.p_address %></textarea>
+                  </div>
+                  <div class="form-actions">
+                    <button type="reset" class="btn btn-outline">Reset</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Save Changes</button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="tab-panel" data-tab-panel="security" hidden>
+                <div class="form-section-title">Change Password</div>
+                <form action="#" method="post">
+                  <div class="form-group">
+                    <label class="form-label">Current Password <span class="required">*</span></label>
+                    <div class="input-icon right">
+                      <input type="password" name="oldPassword" id="oldPassword" class="form-control" required />
+                      <i class="fa-regular fa-eye" data-toggle-password="oldPassword"></i>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">New Password <span class="required">*</span></label>
+                      <input type="password" name="newPassword" class="form-control" minlength="6" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Confirm New Password <span class="required">*</span></label>
+                      <input type="password" name="confirmPassword" class="form-control" minlength="6" required />
+                    </div>
+                  </div>
+                  <div class="alert alert-info">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Use at least 6 characters, mixing letters and numbers for a stronger password.</span>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-shield-halved"></i> Update Password</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- <script src="../js/main.js"></script>
+</body>
+</html> -->
+
+ <%- include('footer.ejs'); %>

@@ -1,0 +1,193 @@
+<%- include('header.ejs'); %>
+
+      <div class="dashboard-content">
+
+        <div class="page-toolbar">
+          <h2>My Appointments</h2>
+          <div class="page-toolbar-actions">
+            </a>
+            <form action="/customer/book_appointment" method="POST">
+              <label >Choose Dr</label>
+              <select class="form-control" name="app_dr_name">
+                <option>Choose</option>
+                <% for(var i=0;i<doctors.length;i++){ %>
+                <option value="<%= doctors[i].did %>"><%= doctors[i].dname %></option>
+                <% } %>
+              </select>
+              <label>Date</label>
+              <input type="date" class="form-control" name="app_date" />
+              <label>Time</label>
+              <input type="time" class="form-control" name="app_time" />
+              <label>Reason </label>
+              <textarea class="form-control" name="app_reason" placeholder="Enter reason for appointment"></textarea>   
+            <button type="submit" class="btn btn-primary"> <i class="fa-solid fa-calendar-plus"></i>Book Appointment</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="form-control" placeholder="Search by doctor, department, or reason…" />
+          </div>
+          <select class="form-control">
+            <option value="all">All Statuses</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+
+        <div data-tabs>
+          <div class="tabs">
+            <button type="button" class="tab-btn active" data-tab="upcoming">
+              <i class="fa-solid fa-calendar-day"></i> Upcoming
+            </button>
+            <button type="button" class="tab-btn" data-tab="past">
+              <i class="fa-solid fa-calendar-check"></i> Past
+            </button>
+            <button type="button" class="tab-btn" data-tab="all">
+              <i class="fa-solid fa-layer-group"></i> All
+            </button>
+          </div>
+
+          <div class="tab-panel active" data-tab-panel="upcoming">
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i=0;i<data2.length;i++){ %>
+                  <tr>
+                    <td><div class="table-user"><img src="/images/<%= data2[i].dimage %>" alt="" /><div><strong><%= data2[i].dname %></strong></div></div></td>
+                    <td><%= data2[i].app_date %></td>
+                    <td><%= data2[i].app_time %></td>
+                    <td><%= data2[i].app_reason %></td>
+                    <td><span class="badge badge-approved"><%= data2[i].status %></span></td>
+                    <td class="table-actions">
+                      <button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button>
+                      <button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-xmark"></i></button>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-tab-panel="past" hidden>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. Priya Sharma</strong><span>Neurology</span></div></div></td>
+                    <td>Jun 14, 2026</td>
+                    <td>11:00 AM</td>
+                    <td>Migraine follow-up</td>
+                    <td><span class="badge badge-completed">Completed</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. Sarah Mitchell</strong><span>Cardiology</span></div></div></td>
+                    <td>May 02, 2026</td>
+                    <td>09:15 AM</td>
+                    <td>ECG review</td>
+                    <td><span class="badge badge-completed">Completed</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1622253692010-333f2809c31d?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. James Carter</strong><span>Orthopedics</span></div></div></td>
+                    <td>Apr 20, 2026</td>
+                    <td>03:30 PM</td>
+                    <td>Knee pain consultation</td>
+                    <td><span class="badge badge-cancelled">Cancelled</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="tab-panel" data-tab-panel="all" hidden>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. Lisa Nguyen</strong><span>Dental</span></div></div></td>
+                    <td>Aug 03, 2026</td>
+                    <td>02:00 PM</td>
+                    <td>Dental cleaning</td>
+                    <td><span class="badge badge-pending">Pending</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. Sarah Mitchell</strong><span>Cardiology</span></div></div></td>
+                    <td>Jul 28, 2026</td>
+                    <td>10:30 AM</td>
+                    <td>Routine heart checkup</td>
+                    <td><span class="badge badge-approved">Approved</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. Priya Sharma</strong><span>Neurology</span></div></div></td>
+                    <td>Jun 14, 2026</td>
+                    <td>11:00 AM</td>
+                    <td>Migraine follow-up</td>
+                    <td><span class="badge badge-completed">Completed</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. Sarah Mitchell</strong><span>Cardiology</span></div></div></td>
+                    <td>May 02, 2026</td>
+                    <td>09:15 AM</td>
+                    <td>ECG review</td>
+                    <td><span class="badge badge-completed">Completed</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                  <tr>
+                    <td><div class="table-user"><img src="https://images.unsplash.com/photo-1622253692010-333f2809c31d?auto=format&fit=crop&w=200&q=80" alt="" /><div><strong>Dr. James Carter</strong><span>Orthopedics</span></div></div></td>
+                    <td>Apr 20, 2026</td>
+                    <td>03:30 PM</td>
+                    <td>Knee pain consultation</td>
+                    <td><span class="badge badge-cancelled">Cancelled</span></td>
+                    <td class="table-actions"><button type="button" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+<%- include('footer.ejs'); %>

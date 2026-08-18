@@ -1,0 +1,153 @@
+<%-include('header.ejs') %>
+
+
+      <div class="dashboard-content">
+
+        <div class="profile-layout">
+          <!-- Sidebar card -->
+          <div class="profile-sidebar-card">
+            <div class="profile-avatar-wrap">
+              <img src="/images/<%=doctor.dimage %>" alt="<%=doctor.dname %>" />
+              <span class="avatar-edit" title="Change photo"><i class="fa-solid fa-camera" ></i></span>
+              
+            </div>
+            <h3><%=doctor.dname %></h3>
+            <span class="role-tag"><%=doctor.department %></span>
+            <div class="profile-stats-mini">
+              <div>
+                <strong><%=doctor.dexperience %></strong>
+                <span>Years Experience</span>
+              </div>
+              <div>
+                <strong>312</strong>
+                <span>Patients Treated</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form card -->
+          <div class="profile-form-card">
+            <div class="profile-form-tabs" data-tabs>
+              <button type="button" class="active" data-tab="personal">Personal Info</button>
+              <button type="button" data-tab="security">Change Password</button>
+            </div>
+
+            <div class="profile-form-body">
+              <!-- Personal info -->
+              <div class="tab-panel active" data-tab-panel="personal">
+                <h4 class="form-section-title">Personal &amp; Professional Details</h4>
+                <form action="/doctor/profile_update/<%=doctor.did %>" method="post" enctype="multipart/form-data">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Full Name <span class="required">*</span></label>
+                      <input type="text" name="name" class="form-control" value="<%=doctor.dname %>" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Email Address</label>
+                      <input type="email" name="email" class="form-control" value="<%=doctor.demail %>" disabled />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Phone Number</label>
+                      <input type="tel" name="phone" class="form-control" value="<%=doctor.dphone %>" placeholder="+1 555-0000" />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Specialty</label>
+                      <input type="text" name="specialty" class="form-control" value="<%=doctor.dspecialty %>" />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">Department</label>
+                      <select name="departmentId" class="form-control">
+                        <option selected>Cardiology</option>
+                        <% for (var i=0;i<department.length;i++){ %>
+                        <option><%=department[i].name %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Gender</label>
+                      <select name="gender" class="form-control">
+                             <option value="">Select</option>
+                             <option value="male" <%= doctor.dgender == "male" ? "selected" : "" %>>Male </option>
+                             <option value="female" <%= doctor.dgender == "female" ? "selected" : "" %>>Female</option>
+                             <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Clinic Address</label>
+                    <input type="text" name="address" class="form-control" value="<%=doctor.daddress %>" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Doctor Discription</label>
+                    <input rows="3" type="text" name="discription" class="form-control"value="<%=doctor.ddisc %>" />
+                      
+                    
+                    <div class="form-group">
+                    <label class="form-label">Time Table Days</label>
+                    <input type="text" name="timetableday" class="form-control" value="<%=doctor.dtimetableday %>" />
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Time Table</label>
+                    <input type="text" name="timetable" class="form-control" value="<%=doctor.dtimetable %>" />
+                  </div>
+
+                  <div class="form-group">
+                      <label class="form-label">Language</label>
+                      <input type="text" name="language" class="form-control" value="<%=doctor.dlanguage %>" />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Doctor Image</label>
+                          <div style="margin-bottom:10px;">
+                              <img src="/images/<%= doctor.dimage %>" width="120" height="120" >
+                            </div>
+                          <input type="file" name="image" class="form-control">
+                     </div>
+                  
+                  </div>
+                  <div class="form-actions">
+                    <button type="reset" class="btn btn-outline">Reset</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-check"></i> Save Changes</button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Password -->
+              <div class="tab-panel" data-tab-panel="security" hidden>
+                <h4 class="form-section-title">Change Password</h4>
+                <form action="#" method="post">
+                  <div class="form-group">
+                    <label class="form-label">Current Password <span class="required">*</span></label>
+                    <input type="password" name="currentPassword" class="form-control" required />
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label">New Password <span class="required">*</span></label>
+                      <input type="password" name="newPassword" class="form-control" minlength="6" required />
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Confirm New Password <span class="required">*</span></label>
+                      <input type="password" name="confirmPassword" class="form-control" minlength="6" required />
+                    </div>
+                  </div>
+                  <p class="form-hint"><i class="fa-solid fa-circle-info"></i> Password must be at least 6 characters long.</p>
+                  <div class="form-actions">
+                    <button type="reset" class="btn btn-outline">Reset</button>
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-lock"></i> Update Password</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<%-include('footer.ejs') %>

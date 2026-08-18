@@ -1,0 +1,50 @@
+
+<%- include('header.ejs'); %>
+
+      <div class="dashboard-content">
+
+        <div class="page-toolbar">
+          <h2>Patient Records</h2>
+          <div class="page-toolbar-actions">
+            <div class="search-box" style="width:280px;">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="search" placeholder="Search by name, phone, blood group…" />
+            </div>
+            <button type="button" class="btn btn-outline btn-sm">
+              <i class="fa-solid fa-download"></i> Export CSV
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-panel" style="margin-bottom:1.75rem;">
+          <div class="dashboard-panel-body no-pad">
+            <div class="table-wrapper">
+              <table class="table">
+                <thead>
+                  <tr><th>Patient</th><th>Gender / Age</th><th>Phone</th><th>Blood Group</th><th>Last Visit</th><th>Total Visits</th><th>Actions</th></tr>
+                </thead>
+                <tbody>
+                  <% for(var i=0;i<data.length;i++){ %>
+                  <tr>
+                    <td><div class="table-user"><div><strong><%= data[i].p_name %></strong><span>Hypertension follow-up</span></div></div></td>
+                    <td><%= data[i].p_gender %> · 42 yrs</td>
+                    <td><%= data[i].p_phone %></td>
+                    <td>O+</td>
+                    <td>Jul 23, 2026</td>
+                    <td>9</td>
+                    <td class="table-actions"><a href="/doctor/patients_detail/<%= data[i].p_id %>" class="btn btn-sm btn-outline"><i class="fa-solid fa-eye"></i> View</a></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Patient Detail -->
+       
+
+      </div>
+    </div>
+  </div>
+<%- include('footer.ejs'); %>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Log in to your MediCare Plus patient, doctor, or admin account to manage appointments and health records." />
+  <meta name="keywords" content="patient login, hospital login, doctor login" />
+  <meta name="author" content="MediCare Plus" />
+  <title>Login | MediCare Plus</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body data-page="login">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <div class="page-loader" id="page-loader">
+    <div class="loader-pulse"></div>
+    <span class="loader-text">MediCare Plus</span>
+  </div>
+
+  <main id="main-content" class="auth-page">
+    <div class="auth-visual">
+      <div class="auth-visual-content">
+        <a href="index.html" class="logo">
+          <span class="logo-icon"><i class="fa-solid fa-hospital"></i></span>
+          <span class="logo-text">Medi<span>Care</span> Plus</span>
+        </a>
+        <h2>Admin Control Centre</h2>
+        <p>Manage doctore,patients,appointments,department,and inventory-with real-time analytics - all from one secure hospital dashboard.</p>
+        <ul class="auth-visual-features">
+          <li><i class="fa-solid fa-check"></i> Real-time appoinment &amp; revenue analytics</li>
+          <li><i class="fa-solid fa-check"></i> Full doctor,petient &amp; inventory management</li>
+          <li><i class="fa-solid fa-check"></i> Role-based, restricted administrator access</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="auth-form-side">
+      <div class="auth-card">
+        <div class="auth-logo-mobile">
+          <a href="index.html" class="logo">
+            <span class="logo-icon"><i class="fa-solid fa-hospital"></i></span>
+            <span class="logo-text">Medi<span>Care</span> Plus</span>
+          </a>
+        </div>
+
+        <div class="auth-header">
+          <h1>Admin Sign In</h1>
+          <p>Restricted access - authorized hospital administrators only.</p>
+        </div>
+
+<!-- data-login-form -->
+        <form action="/admin/login_save" method="post"  novalidate>
+          <div class="form-group">
+            <label class="form-label" for="login-email">Email Address <span class="required">*</span></label>
+            <div class="input-icon">
+              <i class="fa-regular fa-envelope"></i>
+              <input type="email" id="login-email" name="email" class="form-control" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password <span class="required">*</span></label>
+            <div class="input-icon right">
+              <input type="password" id="login-password" name="password" class="form-control" placeholder="Enter your password" required />
+              <i class="fa-regular fa-eye" data-toggle-password="login-password"></i>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-block">
+            <i class="fa-solid fa-right-to-bracket"></i> Sign In Admin Panel
+          </button>
+        </form>
+
+        <div class="auth-divider"><span>or</span></div>
+
+        <p class="auth-footer">
+         <a href="../">Return to MediCare Plus Website</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('[data-toggle-password]').forEach(function (icon) {
+        icon.addEventListener('click', function () {
+          var input = document.getElementById(icon.getAttribute('data-toggle-password'));
+          if (!input) return;
+          var isHidden = input.type === 'password';
+          input.type = isHidden ? 'text' : 'password';
+          icon.classList.toggle('fa-eye', !isHidden);
+          icon.classList.toggle('fa-eye-slash', isHidden);
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <!-- <script src="../js/data.js"></script> -->
+  <script src="../js/auth.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/appointment.js"></script>
+  <!-- <script src="../js/dashboard.js"></script> -->
+  <script src="../js/main.js"></script>
+  <!-- <script src="../js/pages.js"></script> -->
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

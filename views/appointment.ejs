@@ -1,0 +1,118 @@
+<%- include('header.ejs'); %>
+
+  <main id="main-content">
+    <section class="page-banner">
+      <div class="container">
+        <h1>Book an Appointment</h1>
+        <div class="breadcrumb">
+          <a href="/">Home</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Appointment</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Sidebar info -->
+          <div class="contact-info-cards" data-aos="fade-right">
+            <div class="contact-info-card">
+              <div class="info-icon"><i class="fa-regular fa-clock"></i></div>
+              <div>
+                <h4>Working Hours</h4>
+                <p>Mon–Fri: 8:00 AM – 8:00 PM<br>Sat: 9:00 AM – 5:00 PM<br>Sun: Emergency Only</p>
+              </div>
+            </div>
+            <div class="contact-info-card">
+              <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <h4>Need Help Booking?</h4>
+                <p>+1 (800) 555-0147<br>Emergency: 108</p>
+              </div>
+            </div>
+            <div class="contact-info-card">
+              <div class="info-icon"><i class="fa-solid fa-file-medical"></i></div>
+              <div>
+                <h4>What to Bring</h4>
+                <p>Photo ID, insurance card (if any), current medications, and prior medical reports.</p>
+              </div>
+            </div>
+            <div class="contact-info-card">
+              <div class="info-icon"><i class="fa-solid fa-circle-info"></i></div>
+              <div>
+                <h4>Good to Know</h4>
+                <p>Appointments are confirmed as <strong>Pending</strong> until reviewed by our team — you'll see status updates in your patient dashboard.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appointment form -->
+          <div class="contact-form-card" data-aos="fade-left">
+            <h3><i class="fa-solid fa-calendar-plus text-primary"></i> Appointment Details</h3>
+            <p>Fill in your information below. Available time slots update automatically based on the doctor and date you choose.</p>
+            <form action="/appointments_save" method="post" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="apt-name">Full Name <span class="required">*</span></label>
+                  <input type="text" id="apt-name" name="app_patientname" class="form-control" placeholder="Your full name" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="apt-phone">Phone Number <span class="required">*</span></label>
+                  <input type="tel" id="apt-phone" name="app_phone" class="form-control" placeholder="+1 (555) 000-0000" required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="apt-email">Email Address</label>
+                <input type="email" id="apt-email" name="app_email" class="form-control" placeholder="you@example.com" />
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" >Department <span class="required">*</span></label>
+                  <select  name="app_departmentid" class="form-control"  required>
+                    <option value="">Select Department</option>
+                    <% for(var i=0;i<department.length;i++){ %>
+                    <option value="<%=department[i].did %>"><%=department[i].name %></option>
+                    <% } %>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" >Doctor <span class="required">*</span></label>
+                  <select  name="app_doctorid" class="form-control"  required>
+                    <option value="">Select Doctor</option>
+                     <% for(var i=0;i<doctor.length;i++){ %>
+                    <option value="<%=doctor[i].did %>"><%=doctor[i].dname %></option>
+                    <% } %>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="apt-date">Preferred Date <span class="required">*</span></label>
+                  <input type="date" id="apt-date" name="app_date" class="form-control" data-date-input required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="apt-time">Preferred Time <span class="required">*</span></label>
+                  <input type="time" id="apt-time" name="app_time" class="form-control" data-date-input required />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="apt-reason">Reason for Visit</label>
+                <textarea id="apt-reason" name="app_reason" class="form-control" rows="4" placeholder="Briefly describe your symptoms or reason for the visit..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg btn-block">
+                <i class="fa-solid fa-paper-plane"></i> Request Appointment
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<%- include('footer.ejs'); %>

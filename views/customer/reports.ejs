@@ -1,0 +1,56 @@
+<%- include('header.ejs'); %>
+
+      <div class="dashboard-content">
+
+        <div class="page-toolbar">
+          <h2>Medical Reports</h2>
+          <div class="page-toolbar-actions">
+            <span class="badge badge-success">4 ready</span>
+            <span class="badge badge-warning">1 pending</span>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="form-control" placeholder="Search by report name, type, or doctor…" />
+          </div>
+          <select class="form-control">
+            <option value="all">All Types</option>
+            <option value="Lab Test">Lab Test</option>
+            <option value="Radiology">Radiology</option>
+            <option value="Cardiac Test">Cardiac Test</option>
+          </select>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Report Name</th>
+                <th>Type</th>
+                <th>Ordered By</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+               <% for(var i=0;i<data.length;i++){ %>
+              <tr>
+                <td><div class="table-user"><div class="stat-icon blue" style="width:38px;height:38px;font-size:1rem;"><i class="fa-solid fa-flask"></i></div><div><strong><%= data[i].title %></strong></div></div></td>
+                <td><%= data[i].reportType %></td>
+                <td><%= data[i].p_name %></td>
+                <td><%= data[i].date %></td>
+                <td><span class="badge badge-success">Ready</span></td>
+                <td class="table-actions"><a href="/images/<%= data[i].photo %>" download="<%= data[i].photo %>"  class="btn btn-sm btn-outline"> <i class="fa-solid fa-download"></i> Download</a></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+<%- include('footer.ejs'); %>

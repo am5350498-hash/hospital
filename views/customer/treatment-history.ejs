@@ -1,0 +1,79 @@
+ <%- include('header.ejs'); %>
+
+      <div class="dashboard-content">
+
+        <div class="page-toolbar">
+          <h2>Treatment History</h2>
+          <div class="page-toolbar-actions">
+            <span class="badge badge-primary">4 records</span>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" class="form-control" placeholder="Search by disease, doctor, or treatment…" />
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Disease</th>
+                <th>Diagnosis</th>
+                <th>Treatment</th>
+                <th>Doctor</th>
+                <th>Date</th>
+                <th>Medicine</th>
+                <th>Next Visit</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for (var i=0;i<data.length;i++){ %>
+              <tr>
+                <td><strong><%= data[i].disease %></strong></td>
+                <td><%= data[i].treatment_diagnosis %></td>
+                <td><%= data[i].treatment_notes %></td>
+                <td><%= data[i].dname %></td>
+                <td><%= data[i].treatment_nextvisit %></td>
+                <td><%= data[i].tmedicines%></td>
+                <td><%= data[i].treatment_nextvisit %></td>
+              </tr>
+              <% } %>
+              <!-- <tr>
+                <td><strong>Migraine</strong></td>
+                <td>Recurrent migraine with aura</td>
+                <td>Prophylactic therapy</td>
+                <td>Dr. Priya Sharma</td>
+                <td>Jun 14, 2026</td>
+                <td>Propranolol 40mg</td>
+                <td>Sep 14, 2026</td>
+              </tr>
+              <tr>
+                <td><strong>Dental Caries</strong></td>
+                <td>Mild caries, upper molar</td>
+                <td>Filling &amp; fluoride treatment</td>
+                <td>Dr. Lisa Nguyen</td>
+                <td>Feb 22, 2026</td>
+                <td>Chlorhexidine mouthwash</td>
+                <td>Aug 22, 2026</td>
+              </tr>
+              <tr>
+                <td><strong>Knee Sprain</strong></td>
+                <td>Grade I ligament sprain</td>
+                <td>Rest, ice &amp; physiotherapy</td>
+                <td>Dr. James Carter</td>
+                <td>Apr 20, 2026</td>
+                <td>Ibuprofen 400mg</td>
+                <td>—</td>
+              </tr> -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+ <%- include('footer.ejs'); %>
