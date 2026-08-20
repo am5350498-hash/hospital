@@ -19,9 +19,9 @@
       </div>
 
       <div class="sidebar-user">
-        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Emma Johnson" />
+        <img src="/images/<%= hedersData.photo %>" alt="<%= hedersData.name %>" />
         <div class="sidebar-user-info">
-          <h5>Emma Johnson</h5>
+          <h5><%= hedersData.name %></h5>
           <span>Patient Account</span>
         </div>
       </div>
@@ -57,7 +57,7 @@
         <div class="topbar-left">
           <button type="button" class="sidebar-toggle" data-sidebar-toggle aria-label="Toggle sidebar"><i class="fa-solid fa-bars"></i></button>
           <div class="topbar-title">
-            <h1>Good morning, Emma</h1>
+            <h1><%= hedersData.name %></h1>
             <p>Here's a summary of your health activity.</p>
           </div>
         </div>
@@ -114,14 +114,14 @@
 
           <div class="profile-dropdown dropdown">
             <button type="button" class="profile-trigger" data-dropdown>
-              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80" alt="Emma Johnson" />
-              <span class="profile-name">Emma Johnson</span>
+              <img src="/images/<%= hedersData.photo %>" alt="<%= hedersData.name %>" />
+              <span class="profile-name"><%= hedersData.name %></span>
               <i class="fa-solid fa-chevron-down"></i>
             </button>
             <div class="profile-menu">
               <div class="profile-menu-header">
-                <strong>Emma Johnson</strong>
-                <span>emma.johnson@example.com</span>
+                <strong><%= hedersData.name %></strong>
+                <span><%= hedersData.email %></span>
               </div>
               <a href="/customer/profile"><i class="fa-solid fa-user"></i> My Profile</a>
               <a href="/customer/appointments"><i class="fa-solid fa-calendar-check"></i> My Appointments</a>

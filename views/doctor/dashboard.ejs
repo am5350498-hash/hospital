@@ -22,7 +22,7 @@
             <div class="stat-card-icon green"><i class="fa-solid fa-hospital-user"></i></div>
             <div class="stat-card-body">
               <div class="stat-card-label">Patients Seen</div>
-              <div class="stat-card-value">312</div>
+              <div class="stat-card-value"><%= appointment1.record1 %></div>
               <div class="stat-trend up"><i class="fa-solid fa-arrow-up"></i> All-time completed</div>
             </div>
           </div>
@@ -30,7 +30,7 @@
             <div class="stat-card-icon orange"><i class="fa-solid fa-hourglass-half"></i></div>
             <div class="stat-card-body">
               <div class="stat-card-label">Pending Approvals</div>
-              <div class="stat-card-value">5</div>
+              <div class="stat-card-value"><%= appointment2.record2 %></div>
               <div class="stat-trend neutral">Needs your review</div>
             </div>
           </div>
@@ -119,11 +119,11 @@
           </div>
           <div class="dashboard-panel-body">
             <div class="quick-actions">
-              <a href="prescription.html" class="quick-action">
+              <a href="/doctor/prescriptions" class="quick-action">
                 <i class="fa-solid fa-file-prescription"></i>
                 <span>New Prescription</span>
               </a>
-              <a href="treatment.html" class="quick-action">
+              <a href="/doctor/treatment" class="quick-action">
                 <i class="fa-solid fa-notes-medical"></i>
                 <span>Add Treatment Note</span>
               </a>

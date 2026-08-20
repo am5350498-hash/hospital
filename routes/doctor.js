@@ -12,18 +12,41 @@ router.use(fileupload());
 router.use(express.json());
 
 router.use(async (req, res, next) => {
-    var id=req.session.did
-    var sql='select * from doctor where did=?';
-    var data =await exe(sql,[id]);
+
+    var id = req.session.did;
+
+    if (!id) {
+        res.locals.hedersData = {
+            name: "Doctor",
+            photo: "",
+            department: ""
+        };
+        return next();
+    }
+
+    var sql = `SELECT * FROM doctor WHERE did=?`;
+    var data = await exe(sql, [id]);
+
     console.log("SESSION DID =", id);
     console.log("DOCTOR DATA =", data);
-    var user={
-        name:data[0].dname,
-        photo:data[0].dimage,
-        department:data[0].department
+
+    if (data.length == 0) {
+        res.locals.hedersData = {
+            name: "Doctor",
+            photo: "",
+            department: ""
+        };
+        return next();
+    }
+
+    var user = {
+        name: data[0].dname,
+        photo: data[0].dimage,
+        department: data[0].department
     };
 
-    res.locals.hedersData=user;
+    res.locals.hedersData = user;
+
     next();
 });
 
@@ -42,8 +65,12 @@ router.get('',login_check,async(req,res)=>{
      var data =await exe(sql,[id]);
      var sql2='select count(*) as record from appointment where app_dr_name=?';
      var appointment =await exe(sql2,[id]);
-    //  res.send(appointment);
-    res.render('doctor/dashboard.ejs',{data:data [0],appointment:appointment[0]})
+    var sql3 = `SELECT COUNT(*) AS record1 FROM appointment WHERE app_dr_name=? AND status='Complete'`;
+    var appointment1 = await exe(sql3, [id]);
+    var sql3 = `SELECT COUNT(*) AS record2 FROM appointment WHERE app_dr_name=? AND status='pending'`;
+    var appointment2 = await exe(sql3, [id]);
+    //  res.send(appointment1);
+    res.render('doctor/dashboard.ejs',{data:data [0],appointment:appointment[0],appointment1:appointment1[0],appointment2:appointment2[0]})
 })
 
 

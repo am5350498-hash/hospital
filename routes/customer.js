@@ -20,6 +20,20 @@ function login_check(req,res,next){
 }
 
 
+router.use(async (req, res, next) => {
+    var id=req.session.p_id
+    var sql='select * from customer where p_id=?';
+    var data =await exe(sql,[id]);
+    var user={
+        name:data[0].p_name,
+        photo:data[0].p_image,
+        email:data[0].p_email
+    };
+
+    res.locals.hedersData=user;
+    next();
+});
+
 
 router.get('',login_check,async (req,res)=>{
     // res.send('Welcome Customer panal');
@@ -28,8 +42,17 @@ router.get('',login_check,async (req,res)=>{
     var data =await exe(sql,[id]);
     var sql1 = `SELECT COUNT(*) AS total_records FROM prescription WHERE p_id=?`;
     var prescription = await exe(sql1, [id]);
-    //  res.send(prescription);
-    res.render('customer/dashboard.ejs',{data:data [0],prescription:prescription[0]});
+    var sql2=`select count(*) as record from appointment where status='Complete'`;
+     var appointment =await exe(sql2,[id]);
+     var sql3 = `
+    SELECT COUNT(*) AS total_records
+    FROM report
+    WHERE patient_name=?
+`;
+
+var report = await exe(sql3, [id]);
+    //  res.send(report);
+    res.render('customer/dashboard.ejs',{data:data [0],prescription:prescription[0],appointment:appointment[0],report:report[0]});
     
 })
 
@@ -112,13 +135,14 @@ router.get('/prescriptions_view/:id/:did',login_check,async(req,res)=>{
     res.render('customer/prescriptions_view.ejs',{data:data,data1:data1,customer:customer[0]});
 
 })
-router.get('/reports',async(req,res)=>{
-    var sql = ` SELECT  report.*, customer.p_name FROM report LEFT JOIN customer  ON customer.p_id = report.patient_name ORDER BY report.r_id DESC`;
-    var data = await exe(sql);
-    var sql1 = "SELECT * FROM customer ORDER BY p_id DESC";
-    var data1 = await exe(sql1);
-    res.render('customer/reports.ejs',{data:data,data1:data1})
-})
+router.get('/reports', login_check, async (req, res) => {
+    var id = req.session.p_id;
+    var sql = ` SELECT report.*, customer.p_name FROM report LEFT JOIN customer ON customer.p_id = report.patient_name WHERE report.patient_name = ? ORDER BY report.r_id DESC`;
+    var data = await exe(sql, [id]);
+    var sql1 = `SELECT * FROM customer WHERE p_id = ? `;
+    var data1 = await exe(sql1, [id]);
+    res.render('customer/reports.ejs', {data: data, data1: data1});
+});
 
 router.get('/payments',async(req,res)=>{
      var id=req.session.p_id

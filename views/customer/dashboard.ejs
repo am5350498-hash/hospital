@@ -12,7 +12,7 @@
             <div class="stat-card-icon blue"><i class="fa-solid fa-calendar-check"></i></div>
             <div class="stat-card-body">
               <div class="stat-card-label">Appointments</div>
-              <div class="stat-card-value">2</div>
+              <div class="stat-card-value"><%= appointment.record%></div>
               <div class="stat-trend neutral">Next: Jul 28, 10:30 AM</div>
             </div>
           </div>
@@ -28,7 +28,7 @@
             <div class="stat-card-icon orange"><i class="fa-solid fa-file-medical"></i></div>
             <div class="stat-card-body">
               <div class="stat-card-label">Medical Reports</div>
-              <div class="stat-card-value">5</div>
+              <div class="stat-card-value"><%= report.total_records%></div>
               <div class="stat-trend neutral">1 pending review</div>
             </div>
           </div>
@@ -117,19 +117,19 @@
 
         <h3 style="margin-bottom: 1rem;">Quick Actions</h3>
         <div class="quick-actions">
-          <a href="/appointment.html" class="quick-action">
+          <a href="/customer/appointments" class="quick-action">
             <i class="fa-solid fa-calendar-plus"></i>
             <span>Book Appointment</span>
           </a>
-          <a href="prescriptions.html" class="quick-action">
+          <a href="/customer/prescriptions" class="quick-action">
             <i class="fa-solid fa-prescription-bottle-medical"></i>
             <span>View Prescriptions</span>
           </a>
-          <a href="reports.html" class="quick-action">
+          <a href="/customer/reports" class="quick-action">
             <i class="fa-solid fa-file-arrow-down"></i>
             <span>Download Reports</span>
           </a>
-          <a href="payments.html" class="quick-action">
+          <a href="/customer/payments" class="quick-action">
             <i class="fa-solid fa-credit-card"></i>
             <span>View Payments</span>
           </a>
